@@ -1,29 +1,39 @@
 package com.cgi.test;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.cgi.base.AutomationWrapper;
+import com.cgi.pages.DashboardPage;
+import com.cgi.pages.LoginPage;
 
 public class LoginTest extends AutomationWrapper {
 	@Test
 	public void validLoginTest() {
-		driver.findElement(By.name("username")).sendKeys("Admin");
-		driver.findElement(By.name("password")).sendKeys("admin123");
-		driver.findElement(By.xpath("//button[contains(normalize-space(),'Login')]")).click();
 
-		String actualValue = driver.findElement(By.xpath("//p[contains(normalize-space(),'Quick')]")).getText();
+		LoginPage login = new LoginPage(driver);
+
+		login.enterUsername("Admin");
+		login.enterPassword("admin123");
+		login.clickOnLogin();
+
+		DashboardPage dashboard = new DashboardPage(driver);
+
+		String actualValue = dashboard.getQuickLaunchText();
 		Assert.assertEquals(actualValue, "Quick Launch");
 	}
 
 	@Test
 	public void invalidLoginTest() {
-		driver.findElement(By.name("username")).sendKeys("john");
-		driver.findElement(By.name("password")).sendKeys("john123");
-		driver.findElement(By.xpath("//button[contains(normalize-space(),'Login')]")).click();
+
+		LoginPage login = new LoginPage(driver);
+
+		login.enterUsername("john");
+		login.enterPassword("john123");
+		login.clickOnLogin();
+
 		// Assert the error - Invalid credentials
-		String actualError = driver.findElement(By.xpath("//p[contains(normalize-space(),'Invalid')]")).getText();
+		String actualError = login.getInvalidErrorMessage();
 		Assert.assertEquals(actualError, "Invalid credentials");
 	}
 }
