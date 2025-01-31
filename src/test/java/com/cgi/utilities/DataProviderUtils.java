@@ -8,8 +8,8 @@ import org.testng.annotations.DataProvider;
 public class DataProviderUtils {
 
 	@DataProvider
-	public String[][] invalidLoginData() {
-		String[][] data = new String[2][3];
+	public Object[][] invalidLoginData() {
+		Object[][] data = new Object[2][3];
 
 		data[0][0] = "john";
 		data[0][1] = "john123";

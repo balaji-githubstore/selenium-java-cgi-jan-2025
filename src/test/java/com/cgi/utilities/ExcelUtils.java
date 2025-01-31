@@ -1,4 +1,4 @@
-package com.cgi.test;
+package com.cgi.utilities;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,18 +7,13 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ZDemo2Excel {
-
-	public static void main(String[] args) throws IOException {
-
-		// location - read or write
-		FileInputStream file = new FileInputStream("test-data/orange-test-data.xlsx");
-
-		// Open
+public class ExcelUtils {
+	
+	public static Object[][] getSheetIntoTwoDimensionalArray(String filePath,String sheetname) throws IOException
+	{
+		FileInputStream file = new FileInputStream(filePath);
 		XSSFWorkbook book = new XSSFWorkbook(file);
-
-		// sheet
-		XSSFSheet sheet = book.getSheet("validLoginTest");
+		XSSFSheet sheet = book.getSheet(sheetname);
 
 		int rowCount = sheet.getPhysicalNumberOfRows();
 		int cellCount = sheet.getRow(0).getPhysicalNumberOfCells();
@@ -35,5 +30,8 @@ public class ZDemo2Excel {
 
 		book.close();
 		file.close();
+		
+		return data;
 	}
+
 }
