@@ -9,22 +9,24 @@ import com.cgi.pages.LoginPage;
 import com.cgi.utilities.DataProviderUtils;
 
 public class LoginTest extends AutomationWrapper {
-	@Test
-	public void validLoginTest() {
+	
+	
+	@Test(dataProviderClass = DataProviderUtils.class, dataProvider = "commonDataProvider")
+	public void validLoginTest(String username,String password,String expectedValue) {
 
 		LoginPage login = new LoginPage(driver);
 
-		login.enterUsername("Admin");
-		login.enterPassword("admin123");
+		login.enterUsername(username);
+		login.enterPassword(password);
 		login.clickOnLogin();
 
 		DashboardPage dashboard = new DashboardPage(driver);
 
 		String actualValue = dashboard.getQuickLaunchText();
-		Assert.assertEquals(actualValue, "Quick Launch");
+		Assert.assertEquals(actualValue, expectedValue);
 	}
 
-	@Test(dataProviderClass = DataProviderUtils.class, dataProvider = "invalidLoginData")
+	@Test(dataProviderClass = DataProviderUtils.class, dataProvider = "commonDataProvider")
 	public void invalidLoginTest(String username, String password, String expectedError) {
 
 		LoginPage login = new LoginPage(driver);

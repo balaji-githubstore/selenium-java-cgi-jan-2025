@@ -1,5 +1,8 @@
 package com.cgi.utilities;
 
+import java.io.IOException;
+import java.lang.reflect.Method;
+
 import org.testng.annotations.DataProvider;
 /**
  * Keep all the testdata for DataProvider
@@ -22,5 +25,16 @@ public class DataProviderUtils {
 		return data;
 	}
 	
+	
+	@DataProvider
+	public Object[][] commonDataProvider(Method method) throws IOException {
+		
+		//sheetname is the @Test method
+		//get the @Test method name. That should be added as sheetname in excel
+		String sheetName=method.getName();
+		
+		Object[][] data=ExcelUtils.getSheetIntoTwoDimensionalArray("test-data/orange-test-data.xlsx", sheetName);
+		return data;
+	}
 	
 }
