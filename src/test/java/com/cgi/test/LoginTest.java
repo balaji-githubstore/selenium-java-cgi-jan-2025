@@ -11,7 +11,7 @@ import com.cgi.utilities.DataProviderUtils;
 public class LoginTest extends AutomationWrapper {
 	
 	
-	@Test(dataProviderClass = DataProviderUtils.class, dataProvider = "commonDataProvider")
+	@Test(dataProviderClass = DataProviderUtils.class, dataProvider = "commonDataProvider",groups = {"smoke","login"})
 	public void validLoginTest(String username,String password,String expectedValue) {
 
 		LoginPage login = new LoginPage(driver);
@@ -26,7 +26,7 @@ public class LoginTest extends AutomationWrapper {
 		Assert.assertEquals(actualValue, expectedValue);
 	}
 
-	@Test(dataProviderClass = DataProviderUtils.class, dataProvider = "commonDataProvider")
+	@Test(dataProviderClass = DataProviderUtils.class, dataProvider = "commonDataProvider",groups = {"login"})
 	public void invalidLoginTest(String username, String password, String expectedError) {
 
 		LoginPage login = new LoginPage(driver);

@@ -7,13 +7,13 @@ import org.testng.annotations.Test;
 import com.cgi.base.AutomationWrapper;
 
 public class LoginUITest extends AutomationWrapper{
-	@Test
+	@Test(groups = {"smoke","ui"})
 	public void titleTest() {
 		String actualTitle = driver.getTitle();
 		Assert.assertEquals(actualTitle, "OrangeHRM");
 	}
 
-	@Test
+	@Test(groups = {"ui"})
 	public void placeholderTest() {
 		String actualUsernamePlaceholder = driver.findElement(By.name("username")).getDomAttribute("placeholder");
 		String actualPasswordPlaceholder = driver.findElement(By.name("password")).getDomAttribute("placeholder");
@@ -22,7 +22,7 @@ public class LoginUITest extends AutomationWrapper{
 		Assert.assertEquals(actualPasswordPlaceholder, "Password");
 	}
 	
-	@Test
+	@Test(groups = {"ui"})
 	public void headerTest()
 	{
 		String actualHeader=driver.findElement(By.xpath("//h5")).getText();
